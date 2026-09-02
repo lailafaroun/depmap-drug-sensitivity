@@ -7,11 +7,11 @@ This project explores whether gene expression and mutation data from cancer cell
 Build a model that classifies cell lines as **sensitive** or **resistant** to a chosen drug, based on their molecular profile (gene expression + mutation status).
 
 ## Data Sources
-All data from DepMap Portal:
-- **CCLE_expression** - gene expression (TPM) per cell line
-- **CCLE_mutations** - mutation status per cell line
-- **Drug sensitivity** - PRISM Repurposing or GDSC (IC50 values)
-- **Cell line metadata** - cancer type, tissue of origin
+All data from DepMap Portal (26Q1 release):
+- **Expression** - `OmicsExpressionTPMLogp1HumanProteinCodingGenes.csv` - gene expression (TPM) per cell line
+- **Mutations** - `OmicsSomaticMutationsMatrixDamaging.csv` - damaging mutation status per cell line
+- **Drug sensitivity** - PRISM Repurposing Secondary Screen (AUC) - chosen over GDSC/IC50 for broader drug coverage and more robust dose-response summarization
+- **Cell line metadata** - `Model.csv` - cancer type, tissue of origin
 
 ## Project Status
 In progress - environment setup, data collection, and research
@@ -26,6 +26,7 @@ conda activate port1
 (to be documented as the project develops)
 
 ## Log
-- **[1/September/2026]** - Project initialized, environment set up, GitHub repo created.
+- **[1/Sept/2026]** - Project initialized, environment set up, GitHub repo created.
+- **[2/Sept/2026]** - Downloaded DepMap 26Q1 data (mentioned in data sources). Chose PRISM over GDSC for broader compound coverage; chose AUC over IC50 for more robust sensitivity summary across the dose-response curve.
 
 

@@ -42,60 +42,6 @@ conda create -n port1 python=3.11 pandas numpy scikit-learn matplotlib seaborn s
 conda activate port1
 ```
 
-## Code: Isolating Olaparib Response Values
-```python
->>> import pandas as pd
->>> conditions1 = pd.read_csv("GDSC1Log2ViabilityConditions.csv")
->>> conditions2 = pd.read_csv("GDSC2Log2ViabilityConditions.csv")
->>> auc1 = pd.read_csv("GDSC1AUCMatrix.csv",index_col=0)
->>> auc2 = pd.read_csv("GDSC2AUCMatrix.csv",index_col=0)
->>> olaparib1_info = conditions1[conditions1["CompoundName"].str.upper() == "OLAPARIB"]
->>> print(olaparib1_info[["CompoundName","SampleID","CompoundID"]].drop_duplicates())
->>> olaparib2_info = conditions2[conditions2["CompoundName"].str.upper() == "OLAPARIB"]
->>> print(olaparib2_info[["CompoundName","SampleID","CompoundID"]].drop_duplicates())
->>> target_id1 = "DPC-004744"
->>> matches1 = [c for c in auc1.columns if target_id1 in str(c)]
->>> print(matches1)
->>> target_id2 = "DPC-004744"
->>> matches2 = [c for c in auc2.columns if target_id2 in str(c)]
->>> print(matches2)
->>> olaparib_values1 = auc1[matches1[0]].dropna()
->>> olaparib_values2 = auc2[matches2[0]].dropna()
->>> print(f"Total cell lines with Olaparib data (GDSC1): {len(olaparib_values1)}")
->>> print(f"Total cell lines with Olaparib data (GDSC2): {len(olaparib_values2)}")
->>> print(olaparib_values1.describe())
-count    879.000000
-mean       0.924584
-std        0.077692
-min        0.407111
-25%        0.891003
-50%        0.939235
-75%        0.985516
-max        1.000000
-Name: DPC-004744, dtype: float64
->>> print(olaparib_values2.describe())
-count    944.000000
-mean       0.927223
-std        0.052482
-min        0.664897
-25%        0.902797
-50%        0.935165
-75%        0.962145
-max        1.000000
-Name: DPC-004744, dtype: float64
-```
-
-## Code: Plotting the Distribution
-```
->>> import matplotlib.pyplot as plt
->>> plt.figure(figsize=(8,5))
->>> plt.hist(olaparib_values2, bins=30, edgecolor='black')
->>> plt.xlabel("Olaparib AUC (lower = more sensitive)")
->>> plt.ylabel("Number of cell lines")
->>> plt.title("Distribution of Olaparib Sensitivity Across Cell Lines (GDSC2)")
->>> plt.show()
-```
-
 ## Figures
 Figure 1: Distribution of Olaparib sensitivity (AUC) across 944 cell lines (GDSC2)
 ![Olaparib GDSC2 AUC Distribution](figures/olaparib_gdsc2_histogram.png)
